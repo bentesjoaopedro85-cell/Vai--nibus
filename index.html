@@ -136,7 +136,19 @@ function buscarTrajeto() {
     "&output=embed";
 }
 </script>
+<script>
+const horarios = {
+  "M-309": {
+    primeiraSaida: "04:30",
+    ultimaSaida: "22:40",
+    dias: "Segunda a sexta-feira"
+  }
+};
 
+function mostrarHorarios() {
+  return horarios["M-309"];
+}
+</script>
 </body>
 </html>
 
