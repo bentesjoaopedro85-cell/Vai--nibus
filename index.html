@@ -4,142 +4,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VAI-ÔNIBUS</title>
+<title>VAIÔNIBUS</title>
+
 <style>
-*{box-sizing:border-box}
-body{<div id="app">
-  <h1>VAIÔNIBUS</h1>
-  <p>Seu ônibus, seu horário, seu caminho.</p>
-  <input type="text" placeholder="Digite seu destino">
-  <button>Buscar ônibus</button>
-</div>
- margin:0;
- font-family:Arial,sans-serif;
- background:#eef5ff;
- color:#12345a;
+* {
+  box-sizing: border-box;
 }
-header{
- background:#0755b8;
- color:white;
- padding:28px 20px;
- border-radius:0 0 25px 25px;
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #eef5ff;
+  color: #12345a;
 }
-header h1{font-size:30px;margin:0}
-header p{margin:8px 0 0}
-main{padding:20px;max-width:550px;margin:auto}
-.card{
- background:white;
- padding:20px;
- border-radius:18px;
- margin-bottom:18px;
- box-shadow:0 4px 15px #00000012;
+
+header {
+  background: #0755b8;
+  color: white;
+  padding: 28px 20px;
+  text-align: center;
 }
-label{display:block;font-weight:bold;margin:14px 0 7px}
-select,button{
- width:100%;
- padding:14px;
- border-radius:10px;
- border:1px solid #cbd9ed;
- font-size:16px;
+
+header h1 {
+  margin: 0;
+  font-size: 32px;
 }
-button{
- background:#0755b8;
- color:white;
- border:0;
- font-weight:bold;
- margin-top:18px;
+
+header p {
+  margin-bottom: 0;
 }
-.result{
- background:#e8f2ff;
- padding:15px;
- border-radius:12px;
- margin-top:15px;
- line-height:1.6;
+
+main {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
 }
-footer{text-align:center;padding:20px;color:#567}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 3px 12px #0001;
+}
+
+input, button {
+  width: 100%;
+  padding: 14px;
+  margin: 9px 0;
+  border-radius: 9px;
+  font-size: 16px;
+}
+
+input {
+  border: 1px solid #b8cce5;
+}
+
+button {
+  background: #0755b8;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+#mapa {
+  width: 100%;
+  height: 350px;
+  border: 0;
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #567;
+}
 </style>
 </head>
+
 <body>
 
 <header>
-<h1>🚌 VAI-ÔNIBUS</h1>
-<p>Seu caminho começa aqui.</p>
+  <h1>🚌 VAIÔNIBUS</h1>
+  <p>Seu ônibus, seu caminho!</p>
 </header>
 
 <main>
-<div class="card">
-<h2>Para onde vamos?</h2>
+  <div class="card">
+    <h2>Buscar trajeto</h2>
 
-<label>Minha origem</label>
-<select id="origem">
-<option value="Benevides">Benevides</option>
-<option value="Murinin">Murinin</option>
-<option value="Benfica">Benfica</option>
-</select>
+    <input id="origem" placeholder="Digite sua origem">
 
-<label>Meu destino</label>
-<select id="destino">
-<option value="Belém">Belém</option>
-<option value="Benevides">Benevides</option>
-<option value="Murinin">Murinin</option>
-<option value="Benfica">Benfica</option>
-<option value="Marituba">Terminal de Marituba</option>
-</select>
+    <input id="destino" placeholder="Digite seu destino">
 
-<button onclick="buscar()">Buscar trajeto</button>
+    <button onclick="buscarTrajeto()">
+      Buscar trajeto
+    </button>
 
-<div id="resultado" class="result">
-Escolha sua origem e destino para consultar o trajeto.
-</div>
-</div>
+    <div id="resultado"></div>
 
-<div class="card">
-<h2>📍 Nossa cobertura</h2>
-<p>• Benevides</p>
-<p>• Murinin</p>
-<p>• Benfica</p>
-<p>• Terminal de Marituba</p>
-</div>
-
-<div class="card">
-<h2>⏰ Horários</h2>
-<p>Os horários oficiais serão cadastrados nesta área.</p>
-</div>
+    <iframe
+      id="mapa"
+      src="https://maps.google.com/maps?q=Benevides,PA&output=embed"
+      loading="lazy">
+    </iframe>
+  </div>
 </main>
 
 <footer>
-VAI-ÔNIBUS © 2026
+  VAIÔNIBUS © 2026
 </footer>
 
 <script>
-function buscar(){
- const origem=document.getElementById("origem").value;
- const destino=document.getElementById("destino").value;
- const resultado=document.getElementById("resultado");
+function buscarTrajeto() {
+  const origem = document.getElementById("origem").value.trim();
+  const destino = document.getElementById("destino").value.trim();
 
- if(origem===destino){
- resultado.innerHTML="Origem e destino são iguais.";
- return;
- }
+  if (!origem || !destino) {
+    alert("Digite a origem e o destino!");
+    return;
+  }
 
- if(origem==="Benevides" && destino==="Belém"){
- resultado.innerHTML="<b>Trajeto:</b><br>Benevides → Terminal de Marituba → Belém.<br><br>É necessário fazer integração e pegar outra linha no terminal.";
- }else{
- resultado.innerHTML="<b>Trajeto solicitado:</b><br>"+origem+" → "+destino+"<br><br>Os detalhes desta rota serão cadastrados.";
- }
+  document.getElementById("resultado").innerHTML =
+    "<p>Trajeto encontrado! Veja o mapa abaixo.</p>";
+
+  document.getElementById("mapa").src =
+    "https://maps.google.com/maps?saddr=" +
+    encodeURIComponent(origem) +
+    "&daddr=" +
+    encodeURIComponent(destino) +
+    "&output=embed";
 }
 </script>
 
-</body><div style="padding:20px; text-align:center;">
-  <h2>🗺️ Mapa VAI-ÔNIBUS</h2>
-  <p>Encontre seu trajeto de ônibus.</p>
-
-  <a href="https://www.google.com/maps/dir/?api=1&origin=Benevides,PA&destination=Terminal+de+Marituba,PA&travelmode=transit"
-     target="_blank"
-     style="background:#0875d1;color:white;padding:15px;
-     border-radius:10px;text-decoration:none;display:inline-block;">
-     BUSCAR TRAJETO
-  </a>
-</div>
+</body>
 </html>
 
