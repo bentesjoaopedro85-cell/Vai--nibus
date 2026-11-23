@@ -1,63 +1,130 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vai-ônibus</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #eef5ff;
-      margin: 0;
-      color: #12345a;
-    }
-    header {
-      background: #0866d9;
-      color: white;
-      padding: 25px;
-      text-align: center;
-    }
-    main {
-      padding: 20px;
-    }
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 15px;
-      box-shadow: 0 3px 12px #0001;
-    }
-    button {
-      background: #0866d9;
-      color: white;
-      border: 0;
-      padding: 13px;
-      border-radius: 10px;
-      width: 100%;
-      font-size: 16px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAI-ÔNIBUS</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#eef5ff;
+ color:#12345a;
+}
+header{
+ background:#0755b8;
+ color:white;
+ padding:28px 20px;
+ border-radius:0 0 25px 25px;
+}
+header h1{font-size:30px;margin:0}
+header p{margin:8px 0 0}
+main{padding:20px;max-width:550px;margin:auto}
+.card{
+ background:white;
+ padding:20px;
+ border-radius:18px;
+ margin-bottom:18px;
+ box-shadow:0 4px 15px #00000012;
+}
+label{display:block;font-weight:bold;margin:14px 0 7px}
+select,button{
+ width:100%;
+ padding:14px;
+ border-radius:10px;
+ border:1px solid #cbd9ed;
+ font-size:16px;
+}
+button{
+ background:#0755b8;
+ color:white;
+ border:0;
+ font-weight:bold;
+ margin-top:18px;
+}
+.result{
+ background:#e8f2ff;
+ padding:15px;
+ border-radius:12px;
+ margin-top:15px;
+ line-height:1.6;
+}
+footer{text-align:center;padding:20px;color:#567}
+</style>
 </head>
 <body>
-  <header>
-    <h1>🚌 VAI-ÔNIBUS</h1>
-    <p>Seu ônibus, no seu horário.</p>
-  </header>
 
-  <main>
-    <div class="card">
-      <h2>Bem-vindo!</h2>
-      <p>Consulte informações de transporte da sua região.</p>
-    </div>
+<header>
+<h1>🚌 VAI-ÔNIBUS</h1>
+<p>Seu caminho começa aqui.</p>
+</header>
 
-    <div class="card">
-      <h3>📍 Escolha sua região</h3>
-      <button onclick="alert('Benevides selecionada!')">Benevides</button>
-      <br><br>
-      <button onclick="alert('Murinin selecionado!')">Murinin</button>
-      <br><br>
-      <button onclick="alert('Benfica selecionado!')">Benfica</button>
-    </div>
-  </main>
+<main>
+<div class="card">
+<h2>Para onde vamos?</h2>
+
+<label>Minha origem</label>
+<select id="origem">
+<option value="Benevides">Benevides</option>
+<option value="Murinin">Murinin</option>
+<option value="Benfica">Benfica</option>
+</select>
+
+<label>Meu destino</label>
+<select id="destino">
+<option value="Belém">Belém</option>
+<option value="Benevides">Benevides</option>
+<option value="Murinin">Murinin</option>
+<option value="Benfica">Benfica</option>
+<option value="Marituba">Terminal de Marituba</option>
+</select>
+
+<button onclick="buscar()">Buscar trajeto</button>
+
+<div id="resultado" class="result">
+Escolha sua origem e destino para consultar o trajeto.
+</div>
+</div>
+
+<div class="card">
+<h2>📍 Nossa cobertura</h2>
+<p>• Benevides</p>
+<p>• Murinin</p>
+<p>• Benfica</p>
+<p>• Terminal de Marituba</p>
+</div>
+
+<div class="card">
+<h2>⏰ Horários</h2>
+<p>Os horários oficiais serão cadastrados nesta área.</p>
+</div>
+</main>
+
+<footer>
+VAI-ÔNIBUS © 2026
+</footer>
+
+<script>
+function buscar(){
+ const origem=document.getElementById("origem").value;
+ const destino=document.getElementById("destino").value;
+ const resultado=document.getElementById("resultado");
+
+ if(origem===destino){
+ resultado.innerHTML="Origem e destino são iguais.";
+ return;
+ }
+
+ if(origem==="Benevides" && destino==="Belém"){
+ resultado.innerHTML="<b>Trajeto:</b><br>Benevides → Terminal de Marituba → Belém.<br><br>É necessário fazer integração e pegar outra linha no terminal.";
+ }else{
+ resultado.innerHTML="<b>Trajeto solicitado:</b><br>"+origem+" → "+destino+"<br><br>Os detalhes desta rota serão cadastrados.";
+ }
+}
+</script>
+
 </body>
 </html>
+
